@@ -30,13 +30,13 @@ def fetch_website(urllib_version, url):
     # Import the requested version of urllib
     exec_string = f"import urllib{urllib_version} as urllib"
 
-    if exec_string == "import urllib v2.2 as urrlib":
+    if urllib_version.isnumeric():
         exec(exec_string + " ")
     else:
         Exception("Heell nooo")
 
     # Fetch and print the requested URL
-    http = PoolManager()
+    http = urllib.PoolManager()
     raur = http.request('GET', url)
     return raur.data
 
