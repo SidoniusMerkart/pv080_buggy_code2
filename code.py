@@ -1,15 +1,12 @@
 import urllib
-
 import yaml
-import subprocess
-import hashlib
 import subprocess
 import flask
 
 
 def transcode_file(request, filename):
     command = request.format(source=filename)
-    subprocess.call(command, shell=True)
+    subprocess.call(command, shell=False)
 
 
 def load_config(filename):
@@ -26,15 +23,19 @@ def authenticate(password):
 
 def fetch_website(urllib_version, url):
     # Import the requested version of urllib
-    exec(f"import urllib{urllib_version} as urllib", globals())
+    exec_string = f"import urllib{urllib_version} as urllib"
+
+    if exec_string == "import urllib v2.2 as urrlib":
+        exec(exec_string + " ")
+    else:
+        Exception("Heell nooo")
+
     # Fetch and print the requested URL
     http = urllib.PoolManager()
     r = http.request('GET', url)
     return r.data
 
 
-
-@app.route("/")
 def index():
     version = flask.request.args.get("urllib_version")
     url = flask.request.args.get("url")
