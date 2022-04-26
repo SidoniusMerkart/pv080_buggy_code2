@@ -3,8 +3,6 @@ import subprocess
 import yaml
 
 
-
-
 def transcode_file(request, filename):
     """does stuff"""
     command = request.format(source=filename)
@@ -28,9 +26,13 @@ def authenticate(password):
 def fetch_website(urllib_version, url):
     """does stuff"""
     # Import the requested version of urllib
+
+    if not urllib_version.isnumeric():
+        Exception("Heell nooo")
+
     exec_string = f"import urllib{urllib_version} as urllib"
 
-    if urllib_version.isnumeric():
+    if exec_string != "bad thing":
         exec(exec_string + " ")
     else:
         Exception("Heell nooo")
